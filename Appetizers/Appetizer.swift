@@ -7,22 +7,22 @@
 
 import Foundation
 
-struct Appetizer : Decodable {
-    let id : Int
-    let name : String
-    let description : String
-    let price : Double
-    let imageURL : String
-    let calories : Int
-    let protien : Int
-    let carbs : Int
+struct Appetizer: Decodable, Identifiable {
+    let id: Int
+    let name: String
+    let description: String
+    let price: Double
+    let imageURL: String
+    let calories: Int
+    let protein: Int
+    let carbs: Int
 }
 
-struct AppetizerResponse {
-    let request : [Appetizer]
+struct AppetizerResponse: Decodable {
+    let request: [Appetizer]
 }
 
 struct MockData {
-    static let sampleAppetizer = Appetizer(id: 1, name: "Test", description: "just some", price: 100.0, imageURL: "", calories: 300, protien: 99, carbs: 99)
+    static let sampleAppetizer = Appetizer(id: 1, name: "Test", description: "just some", price: 100.0, imageURL: "", calories: 300, protein: 99, carbs: 99)
     static let appetizers = [sampleAppetizer , sampleAppetizer,sampleAppetizer]
 }
