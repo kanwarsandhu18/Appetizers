@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct AppetizerDetailView: View {
+    @EnvironmentObject var order : Order
     let appetizer : Appetizer
+    @Binding var isShowingAppetizer : Bool
     var body: some View {
         VStack{
-            Image("steak")
-                .resizable()
+            AppetizerImage(urlString: appetizer.imageURL)
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 300,height: 225)
             VStack{
@@ -26,11 +27,11 @@ struct AppetizerDetailView: View {
                     .padding()
                 HStack(spacing:40){
                     VStack(spacing:5){
-                        Text("Carbs")
+                        Text("Calories")
                             .font(.caption)
                             .fontWeight(.bold)
                     
-                        Text("\(appetizer.carbs)")
+                        Text("\(appetizer.calories)")
                             .foregroundStyle(.secondary)
                             .fontWeight(.semibold)
                             .italic()
@@ -48,11 +49,11 @@ struct AppetizerDetailView: View {
                         
                     }
                     VStack(spacing:5){
-                        Text("Carbs")
+                        Text("Protein")
                             .font(.caption)
                             .fontWeight(.bold)
                     
-                        Text("\(appetizer.carbs)")
+                        Text("\(appetizer.protein)")
                             .foregroundStyle(.secondary)
                             .fontWeight(.semibold)
                             .italic()
@@ -62,7 +63,8 @@ struct AppetizerDetailView: View {
             }
             Spacer()
             Button{
-                print("")
+                order.items.append(appetizer)
+                isShowingAppetizer = false
             } label: {
                 Text("$\(appetizer.price, specifier: "%.2f") - Add to order")
                     .font(.title3)
@@ -79,7 +81,7 @@ struct AppetizerDetailView: View {
         .cornerRadius(12)
         .shadow(radius: 35)
         .overlay( Button {
-            print("Dismiss")
+            isShowingAppetizer = false
         } label: {
             ZStack{
                 Circle()
@@ -88,10 +90,11 @@ struct AppetizerDetailView: View {
                     .opacity(0.6)
                 Image(systemName: "xmark")
                     .frame(width: 44 , height: 44)
+                    .foregroundColor(.secondary)
             }} , alignment: .topTrailing)
     }
 }
 
 #Preview {
-    AppetizerDetailView(appetizer: MockData.sampleAppetizer)
+    AppetizerDetailView(appetizer: MockData.sampleAppetizer, isShowingAppetizer: .constant(true))
 }

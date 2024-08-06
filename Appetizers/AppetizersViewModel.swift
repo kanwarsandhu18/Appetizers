@@ -11,6 +11,8 @@ final class AppetizersViewModel : ObservableObject {
     @Published var appetizers : [Appetizer] = []
     @Published var alert : AlertItem?
     @Published var isLoading = false
+    @Published var isShowingDetail = false
+    @Published var appetizerForDetail : Appetizer?
     func getAppetizers ()  {
         self.isLoading = true
         NetworkManager.shared.getAppetizers { response in

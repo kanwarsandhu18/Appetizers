@@ -14,9 +14,19 @@ struct AppetizerListView: View {
             NavigationStack{
                 List(viewModel.appetizers ,id: \.id){ appetizer in
                     AppetizerListCell(appetizer: appetizer)
+                        .listRowSeparator(.visible, edges: /*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                        .onTapGesture {
+                            viewModel.isShowingDetail = true
+                            viewModel.appetizerForDetail = appetizer
+                        }
                 }
+                .disabled(viewModel.isShowingDetail)
                 
                 .navigationTitle("Appetizers")
+            }
+            .blur(radius: viewModel.isShowingDetail ? 10 : 0)
+            if (viewModel.isShowingDetail){
+                AppetizerDetailView(appetizer: viewModel.appetizerForDetail! , isShowingAppetizer: $viewModel.isShowingDetail)
             }
             if (viewModel.isLoading){
                 LoadingView()
