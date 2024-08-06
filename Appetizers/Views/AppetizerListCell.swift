@@ -11,10 +11,9 @@ struct AppetizerListCell: View {
     let appetizer : Appetizer
     var body: some View {
         HStack{
-            Image("steak")
-                .resizable()
+            AppetizerImage(urlString: appetizer.imageURL)
                 .aspectRatio(contentMode: .fit)
-                .frame(width:90 , height: 120)
+                .frame(width:120 , height: 100)
                 .cornerRadius(8)
             VStack (alignment: .leading , spacing: 9){
                 Text(appetizer.name)
